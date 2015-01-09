@@ -7,9 +7,7 @@ var findJobs = function(query) {
     return Promise.cast(Job.find(query).exec());
 };
 
-
-
-exports.findJobs = findJobs;
+var createJob = Promise.promisify(Job.create, Job);
 
 var jobs = [{
     title: 'Waiter',
@@ -25,6 +23,9 @@ var jobs = [{
     description: 'Axes'
 }];
 
+// exports
+
+exports.findJobs = findJobs;
 exports.jobs = jobs;
 
 exports.seedJobs = function() {
@@ -40,5 +41,6 @@ exports.seedJobs = function() {
 
 exports.connectDB = Promise.promisify(mongoose.connect, mongoose);
 
-var createJob = Promise.promisify(Job.create, Job);
+exports.saveJob = createJob;
+
 
